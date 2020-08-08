@@ -1,5 +1,5 @@
 # Package
-version       = "1.0.0"
+version       = "1.1.0"
 author        = "Simon Rowe"
 description   = "CLI utility to pretty print JSON files using the Nim standard library JSON module."
 license       = "MIT"
