@@ -1,33 +1,30 @@
-## Pretty Print Out JSON files (prettyjson)
 ##
 ## SOURCE FILE: dbgUtils.nim
-##
-## Created by Simon Rowe <simon@wiremoons.com> on 22 Apr 2020
-## Source code available from GitHub: https://github.com/wiremoons/prettyjson.git
 ## 
-## Small CLI application to print out JSON file in a readable form.
-##
 ## MIT License
 ## Copyright (c) 2020 Simon Rowe
+## https://github.com/wiremoons/
 ##
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to
-# deal in the Software without restriction, including without limitation the
-# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-# sell copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-# IN THE SOFTWARE.
-#
-
 
 template debug*(data: untyped) =
+  ##
+  ## PROCEDURE: debug
+  ## Input: any debug message to include with the output
+  ## Returns: nothing
+  ## Description: a Nim template used to output debug messages
+  ## from the program. Is not used when a program is compiled
+  ## as a 'release' version - allowing automatic disabling of
+  ## debug output for final application builds. Output includes
+  ## any message passed to the template, along with the source code
+  ## file name and line number the debug message originates from. 
+  ## To use, add this file 'dbgUtils.nim' to a project, and then
+  ## import it into any Nim source code where a debug message is
+  ## required. 
   when not defined(release):
-    write(stderr, "DEBUG: " & data & ".\n")
+    let pos = instantiationInfo()
+    write(stderr, "DEBUG in " & pos.filename & ":" & $pos.line &
+        " \"" & data & "\".\n")
+
+# Allow module to be run standalone for tests
+when isMainModule:
+  debug "This is a test debug message"
