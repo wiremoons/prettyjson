@@ -24,3 +24,6 @@ debug.txt
 
 # file containing api keys
 keys.txt
+
+# CLion IDE suport
+.idea/
